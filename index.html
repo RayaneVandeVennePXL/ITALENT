@@ -3,586 +3,375 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>I-Talent Portfolio — Rayane Van de Venne</title>
+<title>Rayane Van de Venne — I-Talent Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0e17;
-    --surface: #111827;
-    --surface2: #1a2235;
-    --accent: #00d4ff;
-    --accent2: #7c3aed;
-    --accent3: #10b981;
-    --text: #e2e8f0;
-    --muted: #64748b;
-    --border: rgba(255,255,255,0.07);
-    --glow: 0 0 40px rgba(0,212,255,0.15);
+    --bg-base: #050505;
+    --bg-surface: rgba(20, 20, 25, 0.6);
+    --bg-card: rgba(30, 30, 35, 0.4);
+    --text-main: #f3f4f6;
+    --text-dim: #9ca3af;
+    --accent-cyan: #00f0ff;
+    --accent-purple: #8a2be2;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(0, 240, 255, 0.3);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
   html { scroll-behavior: smooth; }
+  
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-base);
+    color: var(--text-main);
     line-height: 1.7;
     overflow-x: hidden;
   }
 
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 9999; opacity: 0.4;
+  /* Animated Background Orbs */
+  .bg-orbs {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: -1; overflow: hidden; pointer-events: none;
+  }
+  .orb {
+    position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.4;
+    animation: float 20s infinite ease-in-out alternate;
+  }
+  .orb-1 { width: 40vw; height: 40vw; background: var(--accent-purple); top: -10%; left: -10%; animation-delay: 0s; }
+  .orb-2 { width: 30vw; height: 30vw; background: var(--accent-cyan); bottom: -10%; right: -5%; animation-delay: -5s; }
+  
+  @keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(5%, 10%) scale(1.1); }
   }
 
-  /* NAV */
+  /* Typography */
+  h1, h2, h3, h4 { font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+  .code-font { font-family: 'Fira Code', monospace; }
+
+  /* Navigation */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 1.2rem 2rem;
-    display: flex; align-items: center; justify-content: space-between;
-    backdrop-filter: blur(20px);
-    background: rgba(10,14,23,0.85);
-    border-bottom: 1px solid var(--border);
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 1.5rem 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(5, 5, 5, 0.5); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.3s ease;
   }
-  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.05rem; color: var(--accent); letter-spacing: -0.02em; }
-  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
-  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--accent); }
+  .nav-logo { font-weight: 900; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem; text-transform: uppercase; letter-spacing: 0.1em; }
+  .nav-logo span { color: var(--accent-cyan); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--text-main); text-shadow: 0 0 10px rgba(0,240,255,0.5); }
 
-  /* HERO */
-  .hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; padding: 8rem 2rem 4rem; }
-  .hero-bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 60% 40%, rgba(0,212,255,0.08) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 50% at 20% 80%, rgba(124,58,237,0.1) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 40% at 90% 10%, rgba(16,185,129,0.06) 0%, transparent 50%);
+  /* Hero Section */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+    padding: 0 5%; position: relative;
   }
-  .hero-bg::after {
-    content: ''; position: absolute; inset: 0;
-    background-image: linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 80%);
+  .hero-tag {
+    display: inline-block; padding: 0.4rem 1rem; border-radius: 50px;
+    background: rgba(0, 240, 255, 0.1); border: 1px solid rgba(0, 240, 255, 0.2);
+    color: var(--accent-cyan); font-size: 0.8rem; font-weight: 500;
+    margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.1em;
   }
-  .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
-  .hero-badge {
+  .hero h1 { font-size: clamp(3rem, 7vw, 6rem); font-weight: 900; max-width: 1000px; margin-bottom: 1.5rem; }
+  .hero h1 span { background: linear-gradient(to right, var(--accent-cyan), var(--accent-purple)); -webkit-background-clip: text; color: transparent; }
+  .hero p { font-size: clamp(1.1rem, 2vw, 1.4rem); color: var(--text-dim); max-width: 650px; font-weight: 300; }
+  
+  /* Scroll Indicator */
+  .scroll-down { position: absolute; bottom: 3rem; left: 5%; display: flex; align-items: center; gap: 1rem; color: var(--text-dim); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; }
+  .scroll-line { width: 40px; height: 1px; background: var(--text-dim); position: relative; overflow: hidden; }
+  .scroll-line::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--accent-cyan); animation: scrollLine 2s infinite; }
+  @keyframes scrollLine { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+  /* Universal Container */
+  .container { max-width: 1300px; margin: 0 auto; padding: 6rem 5%; }
+
+  /* Split Layout for Sections (Editorial Style) */
+  .split-section {
+    display: grid; grid-template-columns: 1fr 2fr; gap: 4rem;
+    margin-bottom: 8rem; position: relative;
+  }
+  @media (max-width: 900px) { .split-section { grid-template-columns: 1fr; gap: 2rem; } }
+
+  .sticky-side {
+    position: sticky; top: 8rem; height: fit-content;
+    padding-right: 2rem; border-right: 1px solid var(--border-color);
+  }
+  @media (max-width: 900px) { .sticky-side { position: relative; top: 0; border-right: none; border-bottom: 1px solid var(--border-color); padding-bottom: 2rem; } }
+
+  .section-label { font-family: 'Fira Code', monospace; color: var(--accent-cyan); font-size: 0.9rem; margin-bottom: 1rem; display: block; }
+  .section-title { font-size: 2.5rem; margin-bottom: 1rem; }
+  .meta-info { list-style: none; margin-top: 2rem; }
+  .meta-info li { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
+  .meta-info li i { color: var(--accent-purple); }
+
+  .content-side { display: flex; flex-direction: column; gap: 2rem; }
+  .content-side p { color: #d1d5db; font-size: 1.05rem; font-weight: 300; }
+  .content-side p strong { color: white; font-weight: 500; }
+
+  /* Glass Cards */
+  .glass-card {
+    background: var(--bg-card); backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color); border-radius: 24px;
+    padding: 2.5rem; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative; overflow: hidden;
+  }
+  .glass-card::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.03), transparent);
+    transform: skewX(-20deg); transition: 0.5s;
+  }
+  .glass-card:hover { transform: translateY(-5px); border-color: var(--border-hover); box-shadow: 0 10px 40px rgba(0, 240, 255, 0.1); }
+  .glass-card:hover::before { left: 150%; }
+
+  /* Tech Pills */
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .tag { 
+    background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color);
+    padding: 0.3rem 0.8rem; border-radius: 8px; font-size: 0.75rem; 
+    color: var(--text-dim); font-family: 'Fira Code', monospace;
+    transition: all 0.3s;
+  }
+  .tag:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); background: rgba(0,240,255,0.05); }
+
+  /* Image Galleries / Placeholders */
+  .image-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; margin-bottom: 1.5rem; }
+  .image-box {
+    width: 100%; height: 200px; background: #111; border-radius: 12px;
+    border: 1px dashed var(--border-color); overflow: hidden; position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .image-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.4s; }
+  .image-box:hover img { opacity: 1; transform: scale(1.05); }
+  .image-box::after { content: 'Voeg afbeelding toe'; position: absolute; font-family: 'Fira Code'; font-size: 0.8rem; color: var(--text-dim); pointer-events: none; }
+  .image-box:hover::after { display: none; }
+  .image-box.full { grid-column: 1 / -1; height: 300px; }
+
+  /* Custom Links */
+  .site-link {
     display: inline-flex; align-items: center; gap: 0.5rem;
-    background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2);
-    border-radius: 100px; padding: 0.4rem 1rem;
-    font-size: 0.8rem; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500;
-    margin-bottom: 2rem; animation: fadeUp 0.6s ease both;
+    color: var(--accent-cyan); text-decoration: none; font-weight: 500;
+    margin-top: 1rem; border-bottom: 1px dashed rgba(0,240,255,0.4); padding-bottom: 2px;
+    transition: all 0.3s;
   }
-  .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
-  .hero h1 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(3rem,8vw,6.5rem); line-height: 1.0; letter-spacing: -0.03em; animation: fadeUp 0.6s 0.1s ease both; margin-bottom: 0.3rem; }
-  .hero h1 .name-accent { display: block; background: linear-gradient(135deg, var(--accent) 0%, #a78bfa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .hero-subtitle { font-size: clamp(1rem,2vw,1.25rem); color: var(--muted); margin: 1.5rem 0 2.5rem; max-width: 600px; font-weight: 300; animation: fadeUp 0.6s 0.2s ease both; }
-  .hero-tags { display: flex; flex-wrap: wrap; gap: 0.75rem; animation: fadeUp 0.6s 0.3s ease both; }
-  .tag { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 0.45rem 1rem; font-size: 0.82rem; color: var(--text); font-weight: 500; display: flex; align-items: center; gap: 0.4rem; }
-  .tag .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent3); }
-  .scroll-hint { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--muted); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; animation: fadeIn 1s 1s ease both; }
-  .scroll-arrow { width: 24px; height: 24px; border: 1px solid var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; animation: scrollBounce 2s infinite; }
-  @keyframes scrollBounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(5px);} }
+  .site-link:hover { border-bottom-style: solid; text-shadow: 0 0 10px rgba(0,240,255,0.5); }
 
-  /* SECTIONS */
-  section { padding: 6rem 2rem; }
-  .container { max-width: 1100px; margin: 0 auto; }
-  .section-header { margin-bottom: 3.5rem; }
-  .section-label { font-size: 0.78rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem; }
-  .section-label::before { content: ''; width: 20px; height: 2px; background: var(--accent); border-radius: 1px; }
-  .section-title { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem,4vw,3rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+  /* Reveal Animation */
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+  .reveal.active { opacity: 1; transform: translateY(0); }
 
-  /* VOORSTELLING */
-  #voorstelling { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-  .profile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-  @media (max-width: 768px) { .profile-grid { grid-template-columns: 1fr; gap: 2rem; } }
-  .profile-text p { color: rgba(226,232,240,0.85); margin-bottom: 1.2rem; font-weight: 300; font-size: 1.02rem; }
-  .profile-aside { display: flex; flex-direction: column; gap: 1.2rem; }
-  .aside-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; position: relative; overflow: hidden; }
-  .aside-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px 2px 0 0; }
-  .aside-card-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; margin-bottom: 1rem; color: var(--accent); }
-  .kq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
-  .kq-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem; font-size: 0.82rem; }
-  .kq-item .kq-type { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.3rem; }
-  .kq-item.strength { border-color: rgba(16,185,129,0.3); }
-  .kq-item.pitfall   { border-color: rgba(245,158,11,0.3); }
-  .kq-item.challenge { border-color: rgba(124,58,237,0.3); }
-  .kq-item.allergy   { border-color: rgba(239,68,68,0.3); }
-  
-  .site-link { display: inline-block; margin-top: 0.5rem; color: var(--accent); text-decoration: none; font-weight: 500; font-size: 0.85rem; transition: all 0.2s; }
-  .site-link:hover { color: var(--accent2); text-shadow: var(--glow); }
-
-  /* OVERZICHT */
-  #overzicht { background: var(--bg); }
-  .domein-block { margin-bottom: 3rem; }
-  .domein-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
-  .domein-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
-  .d-sem .domein-icon { background: rgba(0,212,255,0.12); }
-  .d-inn .domein-icon { background: rgba(124,58,237,0.15); }
-  .d-pop .domein-icon { background: rgba(16,185,129,0.12); }
-  .d-int .domein-icon { background: rgba(245,158,11,0.12); }
-  .activity-list { display: flex; flex-direction: column; gap: 0.6rem; }
-  .activity-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem 1.2rem; display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: center; transition: border-color 0.2s, background 0.2s; }
-  .activity-item:hover { border-color: rgba(0,212,255,0.18); background: var(--surface2); }
-  .activity-name { font-size: 0.92rem; font-weight: 500; }
-  .activity-sub { font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; font-weight: 300; }
-  .activity-meta { text-align: right; flex-shrink: 0; }
-  .activity-date { font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
-  .activity-hours { display: inline-block; margin-top: 0.2rem; background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.15); border-radius: 4px; padding: 0.1rem 0.45rem; font-size: 0.7rem; color: var(--accent); font-weight: 500; }
-
-  /* OPDRACHTEN */
-  #opdrachten { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-  .opdracht-card { background: var(--bg); border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem; margin-bottom: 2rem; position: relative; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; }
-  .opdracht-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.3), var(--glow); border-color: rgba(0,212,255,0.2); }
-  .opdracht-num { font-family: 'Syne', sans-serif; font-size: 5rem; font-weight: 800; position: absolute; top: -1rem; right: 1.5rem; color: rgba(255,255,255,0.03); line-height: 1; pointer-events: none; user-select: none; }
-  .opdracht-header { display: flex; align-items: flex-start; gap: 1.2rem; margin-bottom: 1.5rem; }
-  .opdracht-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
-  .ic-1 { background: rgba(0,212,255,0.12); }
-  .ic-2 { background: rgba(124,58,237,0.15); }
-  .ic-3 { background: rgba(16,185,129,0.12); }
-  .opdracht-category { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); font-weight: 600; margin-bottom: 0.3rem; }
-  .opdracht-title { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
-  .opdracht-info { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-  .info-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--muted); }
-  .opdracht-section { margin-bottom: 1.4rem; }
-  .opdracht-section h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.6rem; font-weight: 600; }
-  .opdracht-section p { font-size: 0.95rem; color: rgba(226,232,240,0.82); font-weight: 300; line-height: 1.75; }
-  .opdracht-section p + p { margin-top: 0.8rem; }
-  
-  .inline-link { color: var(--accent); text-decoration: none; font-weight: 500; transition: color 0.2s; border-bottom: 1px dotted var(--accent); }
-  .inline-link:hover { color: var(--accent2); border-bottom-color: var(--accent2); }
-
-  /* CONCLUSIE */
-  #conclusie { background: var(--bg); }
-  .conclusie-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 4rem; align-items: start; }
-  @media (max-width: 900px) { .conclusie-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
-  .conclusie-text p { font-size: 1.02rem; color: rgba(226,232,240,0.85); margin-bottom: 1.2rem; font-weight: 300; line-height: 1.75; }
-  .xfactor-card { background: linear-gradient(135deg, rgba(0,212,255,0.08) 0%, rgba(124,58,237,0.12) 100%); border: 1px solid rgba(0,212,255,0.2); border-radius: 20px; padding: 2rem; }
-  .xfactor-title { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .xfactor-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.5rem; }
-  .future-items { display: flex; flex-direction: column; gap: 0.8rem; }
-  .future-item { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.88rem; color: rgba(226,232,240,0.85); font-weight: 300; }
-  .future-item .check { width: 18px; height: 18px; border-radius: 5px; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: var(--accent3); flex-shrink: 0; margin-top: 2px; }
-
-  /* FOOTER */
-  footer { background: var(--surface); border-top: 1px solid var(--border); padding: 3rem 2rem; text-align: center; }
-  footer .footer-name { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--accent); margin-bottom: 0.5rem; }
-  footer p { font-size: 0.82rem; color: var(--muted); }
-
-  .divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
-
-  .tech-pill { display: inline-block; background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.15); border-radius: 6px; padding: 0.2rem 0.6rem; font-size: 0.75rem; color: var(--accent); margin: 0.15rem; font-weight: 500; }
-  .tech-pill.purple { background: rgba(124,58,237,0.1); border-color: rgba(124,58,237,0.2); color: #a78bfa; }
-  .tech-pill.green  { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.2); color: var(--accent3); }
-  .tech-pill.red    { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.2); color: #f87171; }
-
-  @keyframes fadeUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
-  @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
-  .reveal { opacity:0; transform:translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .reveal.visible { opacity:1; transform:none; }
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--border-color); padding: 4rem 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(0,0,0,0.5);
+  }
+  .footer-brand { font-weight: 700; font-size: 1.2rem; }
 </style>
 </head>
 <body>
 
+<div class="bg-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+</div>
+
 <nav>
-  <div class="nav-logo">Rayane Van de Venne</div>
+  <div class="nav-logo">Rayane <span>.</span></div>
   <ul class="nav-links">
-    <li><a href="#voorstelling">Voorstelling</a></li>
-    <li><a href="#overzicht">Activiteiten</a></li>
-    <li><a href="#opdrachten">Opdrachten</a></li>
-    <li><a href="#conclusie">Conclusie</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#reflection">Reflection</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-inner">
-    <div class="hero-badge">I-Talent Portfolio · PXL Hogeschool · 2025–2026</div>
-    <h1>Hallo, ik ben<br><span class="name-accent">Rayane</span></h1>
-    <p class="hero-subtitle">Student Toegepaste Informatica · Systeem- en Netwerkbeheer · DevOps &amp; Cybersecurity enthusiast</p>
-    <div class="hero-tags">
-      <span class="tag"><span class="dot"></span>Docker &amp; Kubernetes</span>
-      <span class="tag"><span class="dot" style="background:var(--accent2)"></span>Terraform &amp; IaC</span>
-      <span class="tag"><span class="dot" style="background:var(--accent)"></span>AWS &amp; Azure</span>
-      <span class="tag"><span class="dot" style="background:#f59e0b"></span>Cybersecurity</span>
-      <span class="tag"><span class="dot" style="background:var(--accent3)"></span>CI/CD Pipelines</span>
-    </div>
+<header class="hero">
+  <div class="hero-tag">I-Talent 25/26 · PXL</div>
+  <h1>Engineering <span>resilient</span> infrastructure.</h1>
+  <p>Student Systeem- en Netwerkbeheer. Obsessed with Kubernetes, Cloud automation, and securing the human factor in tech.</p>
+  <div class="scroll-down">
+    Explore <div class="scroll-line"></div>
   </div>
-  <div class="scroll-hint"><div class="scroll-arrow">↓</div><span>Scroll</span></div>
-</section>
+</header>
 
-<!-- VOORSTELLING -->
-<section id="voorstelling">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-label">01</div>
-      <h2 class="section-title">Voorstelling</h2>
-    </div>
-    <div class="profile-grid">
-      <div class="profile-text reveal">
-        <p>Ik ben <strong>Rayane Van de Venne</strong>, student Toegepaste Informatica aan de Hogeschool PXL met de afstudeerrichting Systeem- en Netwerkbeheer (SNB). Mijn passie voor IT begon al in het middelbaar toen ik ontdekte dat ik liever bezig was met netwerkarchitectuur, Linux en virtuele machines dan met puur programmeren.</p>
-        <p>Tijdens mijn jaren op de PXL is die interesse alleen maar gegroeid, vooral richting <strong>Cybersecurity</strong> en <strong>DevOps</strong>. Ik vind het een uitdaging om systemen niet alleen in de lucht te houden, maar ze door automatisering ook echt veilig, performant en zuinig te maken.</p>
-        <p>Inmiddels heb ik een stevige technische basis opgebouwd. Ik werk vlot met Docker containers, Kubernetes en Terraform. Ook met cloud-omgevingen zoals AWS en Azure en het opzetten van CI/CD-pipelines heb ik ervaring. Wat ik het liefst doe? Dingen automatiseren, lastige bugs oplossen en zorgen voor een resultaat dat technisch optimaal beveiligd is en zo efficiënt mogelijk draait.</p>
-        <p>Volgens mijn Thalento-rapport ben ik een echte <em>'Pragmaticus'</em>: een zelfstandige doorzetter die kalm blijft als het druk wordt en pas echt in actie komt als er een concreet probleem opgelost moet worden. Door de POP-sessies heb ik mezelf beter leren kennen. Voor de komende vijf jaar is mijn plan simpel: zoveel mogelijk ervaring opdoen in DevOps en Cloud, een expert worden in tools als Terraform en Kubernetes. Mijn stage bij Melexis is daarvoor een super begin.</p>
-        <div style="margin-top:1.5rem">
-          <span class="tech-pill">Docker</span><span class="tech-pill">Kubernetes</span><span class="tech-pill">Terraform</span>
-          <span class="tech-pill purple">AWS</span><span class="tech-pill purple">Azure</span>
-          <span class="tech-pill green">CI/CD</span><span class="tech-pill green">Linux</span>
-          <span class="tech-pill">Next.js</span><span class="tech-pill purple">TypeScript</span><span class="tech-pill green">Supabase</span>
-        </div>
-      </div>
-      <div class="profile-aside reveal">
-        <div class="aside-card">
-          <div class="aside-card-title">⬡ Kernkwadrant</div>
-          <div class="kq-grid">
-            <div class="kq-item strength"><div class="kq-type">Sterkte</div>Kalm &amp; anderen helpen</div>
-            <div class="kq-item pitfall"><div class="kq-type">Valkuil</div>Te stil in grote groepen</div>
-            <div class="kq-item challenge"><div class="kq-type">Uitdaging</div>Vaker "nee" zeggen</div>
-            <div class="kq-item allergy"><div class="kq-type">Allergie</div>Profiteren van anderen</div>
-          </div>
-        </div>
-        <div class="aside-card">
-          <div class="aside-card-title">🚀 5-jaar plan</div>
-          <p style="font-size:0.88rem;color:rgba(226,232,240,0.8);font-weight:300;line-height:1.7">Zoveel mogelijk ervaring opdoen in DevOps en Cloud. Expert worden in Terraform en Kubernetes. Mijn stage bij <strong>Melexis</strong> verder uitbouwen. Focus op techniek; een rol als manager later niet uitgesloten.</p>
-        </div>
-        <div class="aside-card">
-          <div class="aside-card-title">💡 Eigen project — fishycommunity</div>
-          <p style="font-size:0.88rem;color:rgba(226,232,240,0.8);font-weight:300;line-height:1.7">Volledig zelf gehost community-platform, gebouwd met Vercel, Supabase, Cloudflare R2, Next.js en TypeScript.</p>
-          <a href="https://www.fishycommunity.com" target="_blank" class="site-link">Bekijk fishycommunity.com →</a>
-        </div>
+<main class="container">
+
+  <!-- VOORSTELLING -->
+  <section id="about" class="split-section reveal">
+    <div class="sticky-side">
+      <span class="section-label">01 // IDENTITY</span>
+      <h2 class="section-title">Wie ben ik?</h2>
+      <ul class="meta-info">
+        <li><i>■</i> Toegepaste Informatica (SNB)</li>
+        <li><i>■</i> Focus op DevOps & CyberSec</li>
+        <li><i>■</i> Thalento: Pragmaticus</li>
+      </ul>
+      <div class="tags">
+        <span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Terraform</span>
+        <span class="tag">AWS / Azure</span><span class="tag">CI/CD</span>
       </div>
     </div>
-  </div>
-</section>
+    <div class="content-side glass-card">
+      <p>Ik ben <strong>Rayane Van de Venne</strong>. Mijn passie voor IT begon al in het middelbaar toen ik ontdekte dat ik liever bezig was met netwerkarchitectuur, Linux en virtuele machines dan met puur programmeren. Tijdens mijn jaren op de PXL is die interesse alleen maar gegroeid, vooral richting Cybersecurity en DevOps[cite: 2]. Ik vind het een uitdaging om systemen niet alleen in de lucht te houden, maar ze door automatisering ook echt veilig, performant en zuinig te maken[cite: 2].</p>
+      
+      <p>Volgens mijn Thalento-rapport ben ik een echte <strong>'Pragmaticus'</strong>[cite: 2]. Dat klopt ook wel: ik ben een zelfstandige doorzetter, blijf kalm als het druk wordt en kom pas echt in actie als er een concreet probleem opgelost moet worden[cite: 2]. Mijn sterke kanten zijn mijn kalmte en het feit dat ik graag anderen help. Maar daar zit ook een valkuil: in een grote groep ben ik soms te stil en ik ben soms te lang bezig met het fixen van andermans rommel voordat ik aan mijn eigen werk toekom[cite: 2].</p>
 
-<div class="divider"></div>
+      <p>Voor de komende vijf jaar is mijn plan simpel: zoveel mogelijk ervaring opdoen in DevOps en Cloud, en een expert worden in tools als Terraform en Kubernetes[cite: 2]. Mijn stage bij <strong>Melexis</strong> is daarvoor een super begin[cite: 2]. Daarnaast ontwikkel ik in mijn vrije tijd projecten zoals <strong>fishycommunity</strong>[cite: 2].</p>
 
-<!-- OVERZICHT ACTIVITEITEN -->
-<section id="overzicht">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-label">02</div>
-      <h2 class="section-title">Overzicht Activiteiten</h2>
+      <a href="https://www.fishycommunity.com" target="_blank" class="site-link">Explore fishycommunity.com →</a>
     </div>
+  </section>
 
-    <!-- Seminaries -->
-    <div class="domein-block reveal">
-      <div class="domein-title d-sem"><div class="domein-icon">🔐</div>Seminaries</div>
-      <div class="activity-list">
-        <div class="activity-item">
-          <div><div class="activity-name">Toreon — Hacking is Easy &amp; Hands-on CTF</div><div class="activity-sub">Corda 7 – CC712, Hasselt</div></div>
-          <div class="activity-meta"><div class="activity-date">11 maart 2025</div><div class="activity-hours">4u</div></div>
-        </div>
-        <div class="activity-item">
-          <div><div class="activity-name">Gluo — Multi-Cloud Hands-on Workshop</div><div class="activity-sub">Corda 7 – CC713, Hasselt</div></div>
-          <div class="activity-meta"><div class="activity-date">4 maart 2025</div><div class="activity-hours">3u</div></div>
-        </div>
-        <div class="activity-item">
-          <div><div class="activity-name">Politie FGP Limburg — Digitaal onderzoek en Forensics</div><div class="activity-sub">Corda 7 – CC712, Hasselt</div></div>
-          <div class="activity-meta"><div class="activity-date">1 april 2025</div><div class="activity-hours">3u</div></div>
-        </div>
-        <div class="activity-item">
-          <div><div class="activity-name">Cegeka — Azure Networking</div><div class="activity-sub">Corda 7 – CC714, Hasselt</div></div>
-          <div class="activity-meta"><div class="activity-date">22 april 2025</div><div class="activity-hours">2u</div></div>
-        </div>
-        <div class="activity-item">
-          <div><div class="activity-name">Bedrijfsbezoek Cegeka — Datacenter Tour</div><div class="activity-sub">Cegeka HQ, Universiteitslaan, Hasselt</div></div>
-          <div class="activity-meta"><div class="activity-date">10 dec 2025</div><div class="activity-hours">2u</div></div>
-        </div>
-        <div class="activity-item">
-          <div><div class="activity-name">Secwise — Cyber Security met focus op Identity</div><div class="activity-sub">Corda 7 – CC713, Hasselt</div></div>
-          <div class="activity-meta"><div class="activity-date">12 nov 2025</div><div class="activity-hours">2u</div></div>
-        </div>
-        <div class="activity-item">
-          <div><div class="activity-name">Equans — Ethical Hacking</div><div class="activity-sub">Corda 7 – CC712, Hasselt</div></div>
-          <div class="activity-meta"><div class="activity-date">26 nov 2025</div><div class="activity-hours">4u</div></div>
-        </div>
-        <div class="activity-item">
-          <div><div class="activity-name">Brightest — Pentesting: Inbreken om te beveiligen</div><div class="activity-sub">Corda 7 – CC714, Hasselt</div></div>
-          <div class="activity-meta"><div class="activity-date">5 nov 2024</div><div class="activity-hours">2,5u</div></div>
-        </div>
+  <!-- ACTIVITEIT 1 -->
+  <section id="portfolio" class="split-section reveal">
+    <div class="sticky-side">
+      <span class="section-label">02 // SEMINARIE</span>
+      <h2 class="section-title">Toreon & HackTheBox</h2>
+      <ul class="meta-info">
+        <li><i>■</i> 11 maart 2025 · 4 uur</li>
+        <li><i>■</i> Corda Campus, Hasselt</li>
+        <li><i>■</i> Cybersecurity & CTF</li>
+      </ul>
+      <div class="tags">
+        <span class="tag">HackTheBox</span><span class="tag">CVE</span><span class="tag">Bug Bounty</span>
+        <span class="tag">Recon</span><span class="tag">Nmap</span>
       </div>
     </div>
+    <div class="content-side">
+      <div class="glass-card">
+        <h3 style="margin-bottom: 1rem;">Hacking is easy & Hands-on CTF</h3>
+        <p>Tijdens het seminarie gaf spreker Robbe Van Roey een zeer motiverende presentatie over ethisch hacken[cite: 2]. Zijn boodschap was duidelijk: om echt goed te worden in dit vak, is passie en een enorme tijdsinvestering noodzakelijk[cite: 2]. Hij deelde praktijkvoorbeelden die aantoonden dat hacking vaak om menselijke fouten draait, zoals een gehackte slimme lamp of een publiek toegankelijke API-key waarmee hij toegang kreeg tot een PayPal-account met meer dan een miljoen euro erop[cite: 2]. Dit bewees voor mij dat de 'hacker-mindset' vooral draait om logisch nadenken en ethiek (responsible disclosure)[cite: 2].</p>
+        
+        <p>Geïnspireerd hierdoor heb ik een account aangemaakt op <strong>HackTheBox (HTB) Academy</strong> en ben ik overgestapt naar een betaald abonnement om het traject van Web Penetration Tester serieus aan te pakken[cite: 2]. Na de theorie volgde een hands-on CTF waar we web-exploits uitvoerden en wachtwoorden kraakten, met behulp van tools zoals Nmap[cite: 2].</p>
+        
+        <!-- Image Gallery for Activity 1 -->
+        <div class="image-grid">
+          <div class="image-box"><img src="act1_1.png" alt=""></div>
+          <div class="image-box"><img src="act1_2.png" alt=""></div>
+        </div>
 
-    <!-- Innovatie -->
-    <div class="domein-block reveal">
-      <div class="domein-title d-inn"><div class="domein-icon">⚡</div>Innovatie</div>
-      <div class="activity-list">
-        <div class="activity-item">
-          <div><div class="activity-name">Innovatieroute Deel 1 — Exclusive Networks: Secure SD-WANs</div><div class="activity-sub">Corda 7 – CC712, Hasselt</div></div>
-          <div class="activity-meta"><div class="activity-date">2 okt 2025</div><div class="activity-hours">7u</div></div>
-        </div>
-        <div class="activity-item">
-          <div><div class="activity-name">Innovatieroute Deel 2 — Resilix: Security &amp; Incident Response</div><div class="activity-sub">Corda 7 – CC712, Hasselt</div></div>
-          <div class="activity-meta"><div class="activity-date">9 okt 2025</div><div class="activity-hours">8u</div></div>
-        </div>
-        <div class="activity-item">
-          <div><div class="activity-name">Hackathon — Cybersecurity Challenge Belgium 2026 (Online Qualifiers)</div><div class="activity-sub">Online · CTF formaat</div></div>
-          <div class="activity-meta"><div class="activity-date">27–28 feb 2026</div><div class="activity-hours">2 dagen</div></div>
-        </div>
+        <p><strong>Reflectie:</strong> Wat me vooral bijbleef, was dat je niet bij een groot bedrijf hoeft te zitten om impact te hebben; je kunt als freelancer via bug bounties echt aan de slag[cite: 2]. Mijn grootste werkpunt is dat ik vaak te ongeduldig ben. Door HTB merkte ik dat 80% van het werk gewoon voorbereiding en 'recon' is[cite: 2]. Rustig blijven en methodisch te werk gaan levert uiteindelijk meer resultaat op[cite: 2]. Deze activiteit linkt perfect met mijn opleiding SNB: ik wil systemen niet alleen opzetten, maar ook dicht timmeren[cite: 2].</p>
       </div>
     </div>
+  </section>
 
-    <!-- Persoonlijke Ontwikkeling -->
-    <div class="domein-block reveal">
-      <div class="domein-title d-pop"><div class="domein-icon">🌱</div>Persoonlijke Ontwikkeling</div>
-      <div class="activity-list">
-        <div class="activity-item">
-          <div><div class="activity-name">Projectweek 2TIN</div><div class="activity-sub">Gebouw B Elfde Linie, Hasselt · Workshops, soft skills &amp; jobevent</div></div>
-          <div class="activity-meta"><div class="activity-date">10–14 feb 2025</div><div class="activity-hours">1 week</div></div>
-        </div>
-        <div class="activity-item">
-          <div><div class="activity-name">POP-sessie — Feedback: Key to improvement</div><div class="activity-sub">Gebouw B Elfde Linie, Hasselt</div></div>
-          <div class="activity-meta"><div class="activity-date">Februari 2025</div><div class="activity-hours">2u</div></div>
-        </div>
-        <div class="activity-item">
-          <div><div class="activity-name">POP-sessie — Brein aan het werk! Niet storen!</div><div class="activity-sub">Gebouw B Elfde Linie, Hasselt</div></div>
-          <div class="activity-meta"><div class="activity-date">18 feb 2025</div><div class="activity-hours">2u</div></div>
-        </div>
-        <div class="activity-item">
-          <div><div class="activity-name">POP-sessie — POPping</div><div class="activity-sub">Gebouw B Elfde Linie, Hasselt</div></div>
-          <div class="activity-meta"><div class="activity-date">20 maart 2025</div><div class="activity-hours">2u</div></div>
-        </div>
-        <div class="activity-item">
-          <div><div class="activity-name">POP-sessie — My team and I</div><div class="activity-sub">Corda I-Space, Hasselt · Piramide van Lencioni</div></div>
-          <div class="activity-meta"><div class="activity-date">16 okt 2025</div><div class="activity-hours">2u</div></div>
-        </div>
+  <!-- ACTIVITEIT 2 -->
+  <section class="split-section reveal">
+    <div class="sticky-side">
+      <span class="section-label">03 // INNOVATIE</span>
+      <h2 class="section-title">Incident Response</h2>
+      <ul class="meta-info">
+        <li><i>■</i> 9 oktober 2025 · 8 uur</li>
+        <li><i>■</i> Resilix (Corda Campus)</li>
+        <li><i>■</i> Crisismanagement</li>
+      </ul>
+      <div class="tags">
+        <span class="tag">Ransomware</span><span class="tag">PLAY-groep</span>
+        <span class="tag">IoC Analysis</span><span class="tag">Exchange</span>
       </div>
     </div>
+    <div class="content-side">
+      <div class="glass-card">
+        <h3 style="margin-bottom: 1rem;">Techfusion vs. PLAY Ransomware</h3>
+        <p>Deze dag stond in het teken van een uiterst realistisch scenario waarbij "Techfusion Industries" werd getroffen door de PLAY ransomwaregroep[cite: 2]. De aanval verliep extreem snel: om 12:30 werd de incidentbevestiging gegeven en binnen slechts 15 minuten lag de e-mailserver plat[cite: 2]. Als incident response team moesten we de aanval analyseren en de directie briefen[cite: 2].</p>
 
-    <!-- Internationalisering -->
-    <div class="domein-block reveal">
-      <div class="domein-title d-int"><div class="domein-icon">🌍</div>Internationalisering</div>
-      <div class="activity-list">
-        <div class="activity-item">
-          <div><div class="activity-name">FOSDEM 2026 — Free &amp; Open Source Software Developers' European Meeting</div><div class="activity-sub">ULB Campus Solbosch, Brussel</div></div>
-          <div class="activity-meta"><div class="activity-date">31 jan – 1 feb 2026</div><div class="activity-hours">2 dagen</div></div>
-        </div>
-        <div class="activity-item">
-          <div><div class="activity-name">Quantum Event 2026 — IBM, Copaco &amp; ConsultingExperts</div><div class="activity-sub">High Tech Campus, Eindhoven (NL)</div></div>
-          <div class="activity-meta"><div class="activity-date">8 april 2026</div><div class="activity-hours">7u</div></div>
-        </div>
+        <p>We stelden vast dat de aanvallers waarschijnlijk binnenkwamen via bekende kwetsbaarheden in Microsoft Exchange-servers[cite: 2]. We zochten naar Indicators of Compromise (IoCs) zoals bestanden met de .play extensie en ongebruikelijke netwerkverbindingen naar TOR-nodes[cite: 2]. Een kritiek leerpunt was de instructie om de systemen absoluut niet uit te schakelen, zodat de encryptiesleutels in het RAM-geheugen bewaard bleven voor forensisch onderzoek[cite: 2]. Om de 'blast radius' te beperken stelden we razendsnel een bericht op voor medewerkers om hun netwerkverbinding fysiek te verbreken zonder paniek te zaaien[cite: 2].</p>
+
+        <!-- Full width Image Box -->
+        <div class="image-box full" style="margin: 1.5rem 0;"><img src="act2.png" alt=""></div>
+
+        <p><strong>Reflectie:</strong> Deze activiteit heeft mijn kijk op het vak echt veranderd[cite: 2]. De afsluitende briefing aan het management was een enorme eye-opener. Ik besefte dat je als technieker weinig bereikt als je je plannen niet kunt verkopen aan mensen die de techniek niet begrijpen[cite: 2]. In een crisis moet je uit je technische bubbel stappen, rust uitstralen en feiten filteren voor de directie[cite: 2]. De link met SNB is overduidelijk: een systeem is pas echt 'beheerd' als de beheerder ook de menselijke factor in een crisis onder controle heeft[cite: 2].</p>
       </div>
     </div>
+  </section>
 
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- SELECTIE VAN ACTIVITEITEN -->
-<section id="opdrachten">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-label">03</div>
-      <h2 class="section-title">Selectie van Activiteiten</h2>
+  <!-- ACTIVITEIT 3 -->
+  <section class="split-section reveal">
+    <div class="sticky-side">
+      <span class="section-label">04 // INTERNATIONAAL</span>
+      <h2 class="section-title">FOSDEM 2026</h2>
+      <ul class="meta-info">
+        <li><i>■</i> 31 jan & 1 feb 2026</li>
+        <li><i>■</i> ULB Campus, Brussel</li>
+        <li><i>■</i> Open Source Community</li>
+      </ul>
+      <div class="tags">
+        <span class="tag">CNCF</span><span class="tag">Linux Foundation</span>
+        <span class="tag">Cosign / sigstore</span><span class="tag">PQC</span>
+      </div>
     </div>
+    <div class="content-side">
+      <div class="glass-card">
+        <h3 style="margin-bottom: 1rem;">European Open Source Meeting</h3>
+        <p>Samen met twee medestudenten ging ik naar FOSDEM, de grootste conferentie van Europa voor open-source software[cite: 2]. Wat meteen opviel was de enorme drukte en de unieke, informele sfeer[cite: 2]. Overal stonden stands van organisaties die de ruggengraat vormen van de moderne IT, zoals de Cloud Native Computing Foundation (CNCF) en de Linux Foundation[cite: 2].</p>
 
-    <!-- OPDRACHT 1 -->
-    <div class="opdracht-card reveal">
-      <div class="opdracht-num">01</div>
-      <div class="opdracht-header">
-        <div class="opdracht-icon ic-1">🔐</div>
-        <div>
-          <div class="opdracht-category">Seminarie · Cybersecurity</div>
-          <div class="opdracht-title">Toreon — Hacking is Easy &amp; Hands-on CTF</div>
+        <p>De sessies waren technisch erg diepgaand. We leerden over het beveiligen van containers in moderne ecosystemen met tools zoals Cosign en de sigstore/policy-controller om Kubernetes YAML-bestanden te valideren[cite: 2]. Een andere sessie, "Sequoia git", ging over de afhankelijkheid van centrale autoriteiten zoals GitHub, en stelde voor om embedded policies direct in de repository zelf te plaatsen[cite: 2]. Ook volgde ik een sessie over Post-Quantum Cryptography (PQC) en het voorkomen van de "Harvest now, Decrypt later" tactiek via hybride cryptografie[cite: 2].</p>
+
+        <div class="image-grid">
+          <div class="image-box"><img src="act3_1.jpg" alt=""></div>
+          <div class="image-box"><img src="act3_2.jpg" alt=""></div>
         </div>
-      </div>
-      <div class="opdracht-info">
-        <div class="info-item">📅 11 maart 2025 · 4u</div>
-        <div class="info-item">📍 Corda 7 – CC712, Hasselt</div>
-        <div class="info-item">👤 Spreker: Robbe Van Roey</div>
-      </div>
 
-      <div class="opdracht-section">
-        <h4>Omschrijving</h4>
-        <p>Deze activiteit betrof een seminarie op de Corda Campus over ethisch hacken, georganiseerd door Toreon. De sessie bestond uit een presentatie over het methodisch vinden van kwetsbaarheden (CVE's) en een praktische 'Capture The Flag' (CTF) competitie. Mijn doel was om inzicht te krijgen in de realiteit van de cybersecurity-sector en te ontdekken hoe ik mijn technische achtergrond in Systeem- en Netwerkbeheer kon inzetten voor het opsporen van beveiligingslekken.</p>
-      </div>
-
-      <div class="opdracht-section">
-        <h4>Kern — Showcase</h4>
-        <p>Tijdens het seminarie op 11 maart 2025 gaf spreker Robbe Van Roey een zeer motiverende presentatie. Ondanks zijn jonge leeftijd heeft hij al een indrukwekkend parcours afgelegd in de security-wereld. Zijn boodschap was duidelijk: om echt goed te worden in dit vak, is passie en een enorme tijdsinvestering noodzakelijk. Geïnspireerd door zijn verhaal over Bug Bounties en het zelfstandig vinden van zwakheden in grote systemen, ben ik onmiddellijk tot actie overgegaan.</p>
-        <p>Een van de meest memorabele momenten van de presentatie was toen Robbe enkele praktijkvoorbeelden deelde die aantoonden dat hacking niet altijd om complexe code draait, maar vaak om het vinden van menselijke fouten. Hij liet zien hoe hij een slimme lamp van een bekend merk had gehackt; een ogenschijnlijk onschuldig object dat door een gebrek aan beveiliging een toegangspoort tot een volledig netwerk kon worden. Nog indrukwekkender was zijn verhaal over een publiek toegankelijke API-key die hij per toeval had gevonden. Via deze sleutel kreeg hij toegang tot het PayPal-account van een groot bedrijf, waar op dat moment meer dan een miljoen euro op stond. Dit voorbeeld was voor mij een enorme eye-opener: het bewees dat de 'hacker-mindset' niet alleen gaat over supertechnische exploits, maar vooral over logisch nadenken en goed rondkijken naar menselijke fouten (human error). Het onderstreepte ook het belang van ethiek; in plaats van misbruik te maken van de situatie, maakte hij een melding via responsible disclosure.</p>
-        <p>Zoals blijkt uit mijn bewijsmateriaal, heb ik op 13 maart 2025 — slechts twee dagen na de sessie — een account aangemaakt op HackTheBox (HTB) Academy. Na een korte testperiode van twee dagen op de gratis tier, was ik zo overtuigd van de waarde van dit platform dat ik op diezelfde 13e maart ben overgestapt naar een betaald HTB Academy Student-abonnement. Deze financiële en tijdelijke investering was voor mij een bewuste stap om het traject van Web Penetration Tester serieus aan te pakken.</p>
-        <p>Na de theoretische uiteenzetting volgde de hands-on team-hackathon (CTF). Samen met mijn teamgenoten kregen we toegang tot een lab-omgeving waar we verschillende challenges moesten oplossen. Dit varieerde van web-exploits tot het kraken van eenvoudige wachtwoorden. Het was een intense ervaring waarbij de tijdsdruk ons dwong om efficiënt samen te werken en taken te verdelen. Ik merkte hierbij dat mijn basiskennis van netwerkarchitectuur en Linux me hielp om de structuur van de doelwitten sneller te begrijpen. We gebruikten diverse tools die later ook in mijn HTB-traject aan bod kwamen, zoals Nmap voor port scanning en de developer tools van de browser om broncode te inspecteren op zoek naar verborgen aanwijzingen.</p>
-        <p>Op mijn HTB-dashboard (gebruikersnaam: 'drakenkoorts') is mijn verdere voortgang in de fundamentele modules zichtbaar. Ik heb me gefocust op modules zoals 'Web Requests', waar ik de diepere lagen van het HTTP-protocol heb bestudeerd, en 'Introduction to Web Applications'. Vooral de module 'Information Gathering - Web Edition' was een eye-opener; hier leerde ik dat een succesvolle aanval voor 80% afhangt van de voorbereiding en verkenning van het doelwit. Daarnaast heb ik mijn Linux-vaardigheden naar een hoger niveau getild met de module 'Linux Fundamentals', wat essentieel is voor het beheren van de tools die een hacker dagelijks gebruikt. In mijn 'Favourite Modules' heb ik specifiek 'SQL Injection Fundamentals' en 'JavaScript Deobfuscation' opgenomen. Door dagelijks te oefenen, ook tijdens drukke periodes van mijn Research Project, heb ik badges behaald die mijn groei in technische vaardigheden bevestigen.</p>
-      </div>
-
-      <div class="opdracht-section">
-        <h4>Reflectie</h4>
-        <p>Ik heb deze activiteit gekozen voor mijn portfolio omdat het seminarie van Robbe Van Roey me eigenlijk meteen triggerde. Ik ben iemand die graag praktisch bezig is — een 'Pragmaticus' zoals uit mijn Thalento-test kwam — en dit was de eerste keer dat ik zag hoe je van die technische puzzels ook echt je werk kunt maken. Wat me vooral bijbleef, was dat je niet bij een groot bedrijf hoeft te zitten om hiermee bezig te zijn; je kunt als freelancer via bug bounties ook echt impact hebben.</p>
-        <p>Het belangrijkste dat ik heb geleerd, is dat cybersecurity veel meer is dan alleen maar wat tools draaien. Ik dacht altijd dat ik wel snel even een zwakheid zou vinden, maar tijdens de CTF en mijn eerste dagen op HackTheBox kwam ik mezelf tegen. Mijn grootste werkpunt is dat ik vaak te ongeduldig ben. Ik wilde meteen die exploit proberen, terwijl ik eigenlijk nog niet genoeg info had verzameld. Door die modules op HTB te doen, merkte ik dat 80% van het werk gewoon voorbereiding en 'recon' is. Dat was een goede les voor mij: rustig blijven en methodisch te werk gaan levert uiteindelijk meer resultaat op.</p>
-        <p>Ook het stukje over hoe je gevonden bugs meldt, vond ik erg nuttig. Je moet weten hoe je dit netjes aan een bedrijf laat weten (responsible disclosure) om te voorkomen dat je zelf in de problemen komt. Het gaat erom dat je bedrijven helpt om veiliger te worden, niet om dingen kapot te maken.</p>
-        <p>Deze activiteit was voor mij de perfecte link met mijn opleiding Systeem- en Netwerkbeheer. Ik wil later systemen niet alleen kunnen opzetten, maar ze ook echt dicht kunnen timmeren. De motivatie die ik hier heb opgedaan, neem ik nu mee naar mijn stage bij Melexis en mijn verdere plannen in DevOps. Ik ben na die dag niet gestopt met leren; ik ben eigenlijk nog elke dag bezig om die hacker-mindset verder te ontwikkelen.</p>
-      </div>
-
-      <div style="margin-top:1rem">
-        <span class="tech-pill">Nmap</span><span class="tech-pill">HackTheBox</span>
-        <span class="tech-pill purple">CVE Research</span><span class="tech-pill purple">SQL Injection</span>
-        <span class="tech-pill green">Bug Bounty</span><span class="tech-pill green">Responsible Disclosure</span>
-        <span class="tech-pill">CTF</span><span class="tech-pill">JavaScript Deobfuscation</span>
+        <p><strong>Reflectie:</strong> FOSDEM liet me inzien dat IT veel meer is dan alleen een job; het is een wereldwijde passie[cite: 2]. Als Pragmaticus vond ik het interessant om te zien hoe developers zelf iets nieuws ontwerpen als de huidige standaarden niet voldoen[cite: 2]. Een werkpunt voor een volgend internationaal event is dat ik me vooraf nog dieper kan inlezen op zware theoretische onderwerpen zoals quantum-proof algoritmes[cite: 2]. Deze ervaring heeft me gemotiveerd om mijn ambitie na te jagen: een expert worden in het beveiligen van complexe, schaalbare systemen[cite: 2].</p>
       </div>
     </div>
+  </section>
 
-    <!-- OPDRACHT 2 -->
-    <div class="opdracht-card reveal">
-      <div class="opdracht-num">02</div>
-      <div class="opdracht-header">
-        <div class="opdracht-icon ic-2">🛡️</div>
-        <div>
-          <div class="opdracht-category">Innovatie · Incident Response</div>
-          <div class="opdracht-title">Innovatieroute Deel 2 — Resilix: Security &amp; Incident Response</div>
-        </div>
-      </div>
-      <div class="opdracht-info">
-        <div class="info-item">📅 9 oktober 2025 · 8u</div>
-        <div class="info-item">📍 Corda 7 – CC712, Hasselt</div>
-        <div class="info-item">🎭 Scenario: Techfusion Industries vs. PLAY ransomwaregroep</div>
-      </div>
-
-      <div class="opdracht-section">
-        <h4>Omschrijving</h4>
-        <p>Op 9 oktober 2025 nam ik deel aan de Innovatieroute Security bij Resilix op de Corda Campus. Tijdens deze sessie werkten we aan een realistisch scenario waarbij Techfusion Industries werd getroffen door de PLAY ransomwaregroep. Als onderdeel van het incident response team was het onze taak om de aanval te analyseren, de schade te beperken en uiteindelijk de directie te briefen over de situatie en het herstelplan.</p>
-      </div>
-
-      <div class="opdracht-section">
-        <h4>Kern — Showcase</h4>
-        <p>Op 9 oktober 2025 nam ik deel aan de Innovatieroute Security bij Resilix op de Corda Campus. Deze dag stond in het teken van een uiterst realistisch scenario waarbij Techfusion Industries werd getroffen door de PLAY ransomwaregroep. De aanval verliep extreem snel: om 12:30 werd de incidentbevestiging gegeven en binnen slechts 15 minuten lag de volledige e-mailserver al plat. Als onderdeel van het incident response team was het onze taak om deze aanval te analyseren, de schade te beperken en uiteindelijk een herstelplan voor te leggen aan de directie.</p>
-        <p>Tijdens de technische analyse stelden we vast dat de aanvallers waarschijnlijk binnenkwam via bekende kwetsbaarheden in de Microsoft Exchange-servers van het fictieve bedrijf. Gedurende het onderzoek zochten we gericht naar Indicators of Compromise (IoCs). Zoals te zien is in de drie onderstaande screenshots van mijn inlichtingenrapport, keken we niet alleen naar bestanden met de .play extensie, maar ook naar ongebruikelijke CPU-belastingen en verdachte netwerkverbindingen naar TOR-nodes. Een van de meest kritieke leerpunten was de instructie om de geïnfecteerde systemen absoluut niet uit te schakelen. Door de computers aan te laten, bleven de encryptiesleutels in het vluchtige RAM-geheugen bewaard, wat van onschatbare waarde is voor forensisch onderzoek achteraf.</p>
-        <p>Om de 'blast radius' van de aanval te beperken, moesten we razendsnel handelen op het gebied van isolatie en crisiscommunicatie. Ik stelde een dringend bericht op voor alle medewerkers, waarin ik hen adviseerde om de netwerkverbinding fysiek te verbreken zonder het toestel uit te zetten. De uitdaging hierbij was om medewerkers duidelijke instructies te geven zonder onnodige paniek te zaaien. Deze fase was erg stressvol omdat de tijdsdruk voelbaar was; elke seconde die we verloren, gaf de ransomware de kans om zich verder door het netwerk te verspreiden naar andere kritieke servers.</p>
-        <p>Een bijzonder interessant onderdeel van de sessie was het inzicht in de zakelijke wereld van ransomware-onderhandelingen. De begeleiders lieten ons zien dat er specifieke websites op het dark web bestaan waar de chatgeschiedenissen tussen hackers en slachtoffers publiek worden gemaakt. Dit gaf een unieke blik op de koude manier waarop cybercriminelen te werk gaan. Dit nam ik mee naar de afsluitende briefing voor de "directie", waarin we de technische situatie vertaalden naar begrijpelijke taal voor het management. We adviseerden strikt tegen het betalen van losgeld, omdat dit geen enkele garantie biedt op dataherstel en enkel de criminele infrastructuur financiert. In plaats daarvan stelden we voor om methodisch snapshots en back-ups die buiten het netwerk bewaard waren gebleven te restoren, om zo de integriteit van de systemen te herstellen zonder toe te geven aan de afpersers.</p>
-      </div>
-
-      <div class="opdracht-section">
-        <h4>Reflectie</h4>
-        <p>Deze activiteit heeft mijn kijk op het vak echt veranderd. Vooral de afsluitende briefing aan het management was een enorme eye-opener. Ik dacht altijd dat cybersecurity puur om het technische werk achter de schermen ging, maar ik zag nu in dat communicatie en overleg minstens even belangrijk zijn om een organisatie draaiende te houden. Tijdens die "spreekbeurt" besefte ik dat je als technieker weinig bereikt als je je plannen niet kunt verkopen aan mensen die de techniek niet begrijpen.</p>
-        <p>Als 'Pragmaticus' (volgens mijn Thalento-test) wilde ik in het begin vooral snel de technische oplossing vinden, maar ik merkte dat ik in een crisissituatie uit mijn technische bubbel moet stappen. Je moet rust uitstralen en feitelijke informatie filteren voor de directie, zodat zij de juiste zakelijke beslissingen kunnen nemen. Een concreet probleem waar ik tegenaan liep, was het vertalen van technische termen zoals 'IoCs' en 'lateral movement' naar de taal van het management. Door dit stap voor stap uit te leggen aan de hand van de financiële impact, leerde ik hoe ik een herstelplan effectief kan presenteren.</p>
-        <p>Dit inzicht — dat overleg en professionele communicatie essentieel zijn — is voor mij de belangrijkste les. Mijn sterke punt was mijn kalmte onder tijdsdruk, maar een werkpunt is dat ik nog assertiever mag zijn in het verdedigen van technische veiligheidskeuzes tegenover business-doelen. Het heeft mijn visie op mijn toekomstige rol in Cloud en DevOps veranderd: je bent niet alleen bezig met de infrastructuur, maar je bent ook de adviseur die een organisatie door een crisis moet loodsen. De link met mijn opleiding Systeem- en Netwerkbeheer is hier overduidelijk; een systeem is pas echt 'beheerd' als de beheerder ook de menselijke factor in een crisis onder controle heeft.</p>
-      </div>
-
-      <div style="margin-top:1rem">
-        <span class="tech-pill red">Ransomware</span><span class="tech-pill red">PLAY groep</span>
-        <span class="tech-pill purple">Incident Response</span><span class="tech-pill purple">IoC Analysis</span>
-        <span class="tech-pill">Microsoft Exchange</span><span class="tech-pill">APT</span>
-        <span class="tech-pill green">Crisis Management</span><span class="tech-pill green">Management Briefing</span>
-      </div>
-    </div>
-
-    <!-- OPDRACHT 3 -->
-    <div class="opdracht-card reveal">
-      <div class="opdracht-num">03</div>
-      <div class="opdracht-header">
-        <div class="opdracht-icon ic-3">🌍</div>
-        <div>
-          <div class="opdracht-category">Internationalisering · Open Source</div>
-          <div class="opdracht-title">FOSDEM 2026 — Free &amp; Open Source Software Developers' European Meeting</div>
-        </div>
-      </div>
-      <div class="opdracht-info">
-        <div class="info-item">📅 31 jan &amp; 1 feb 2026 · 2 dagen</div>
-        <div class="info-item">📍 ULB Campus Solbosch, Brussel</div>
-        <div class="info-item">👥 Met 2 medestudenten</div>
-      </div>
-
-      <div class="opdracht-section">
-        <h4>Omschrijving</h4>
-        <p>Op 31 januari en 1 februari 2026 ben ik samen met twee medestudenten naar Brussel gegaan voor FOSDEM, de grootste conferentie van Europa voor open-source software. Het evenement vond plaats op de ULB Campus Solbosch en richtte zich op internationale samenwerking en de nieuwste trends in softwareontwikkeling. Mijn doel was om over de grenzen van mijn eigen afstudeerrichting heen te kijken en te zien hoe wereldwijde IT-communities samenwerken aan complexe problemen.</p>
-      </div>
-
-      <div class="opdracht-section">
-        <h4>Kern — Showcase</h4>
-        <p>Wat me bij aankomst op de campus meteen opviel, was de enorme drukte en de unieke sfeer. In de gangen stonden overal stands van organisaties die de ruggengraat vormen van de moderne IT, zoals de Cloud Native Computing Foundation (CNCF), de Linux Foundation en OpenSSF. Er hing ook een heel informele en grappige sfeer; zo liepen er mensen rond verkleed als verkeerskegels (het VLC-logo) die spelletjes deden met de bezoekers. Je merkt aan alles dat dit een community is van mensen die hier dagelijks mee bezig zijn en er echt een passie voor hebben. Ik was echt verbaasd over hoeveel internationale mensen er speciaal voor dit event naar Brussel waren gekomen.</p>
-        <p>De sessies zelf waren technisch erg diepgaand. Een van de talks ging over het beveiligen van containers in moderne ecosystemen. Zoals te zien op mijn foto's, werd er diep ingegaan op manual verification tools. We leerden hoe docker inspect tegenwoordig geverifieerde signatures kan tonen en hoe tools zoals Cosign en de sigstore/policy-controller worden gebruikt om Kubernetes YAML-bestanden te valideren. Dit was voor mij zeer relevant, omdat het aantoont dat security in een CI/CD-pipeline niet ophoudt bij het scannen van code, maar doorloopt tot de verificatie van de runtime-omgeving. Het valideren van de 'provenance' (herkomst) van een container is cruciaal om supply chain attacks te voorkomen.</p>
-        <p>Een andere sessie die ik bijwoonde was "Sequoia git: Making Signed Commits Matter" door Neal H. Walfield. Hierbij werd uitgelegd dat het een probleem is dat we voor vertrouwen vaak afhankelijk zijn van centrale autoriteiten zoals GitHub. Als een account gecompromitteerd wordt, kunnen kwaadwillenden code pushen die legitiem lijkt. De oplossing van Sequoia is om embedded policies direct in de repository zelf te plaatsen, zodat de verificatie offline en lokaal kan gebeuren op basis van de Web of Trust (WoT). Dit sluit perfect aan bij mijn interesse in gedecentraliseerde beveiliging.</p>
-        <p>Verder volgde ik een sessie over Post-Quantum Cryptography (PQC). De spreker waarschuwde voor de "Harvest now, Decrypt later" tactiek, waarbij aanvallers nu al versleutelde data stelen om die over tien jaar met quantumcomputers te kraken. De voorgestelde oplossing was hybride cryptografie, waarbij klassieke algoritmes (zoals RSA/AES) worden gecombineerd met nieuwe quantum-resistente algoritmes zoals CRYSTALS-Kyber. Ook de sessie over Tor Onion Services was boeiend, waarbij werd uitgelegd hoe .onion-adressen zichzelf authenticeerden via een embedded publieke sleutel in de URL, wat Man-in-the-Middle aanvallen onmogelijk maakt. Tot slot leerde ik bij Tempesta Technologies over het blokkeren van bots direct in de webserver-kernel. Door deze checks op kernel-niveau te doen in plaats van in de user space, kunnen miljoenen verzoeken per seconde worden gefilterd met een minimale CPU-overhead. Het was fascinerend om te zien hoe developers de grenzen van de standaard software-architectuur opzoeken om efficiëntere oplossingen te bouwen.</p>
-      </div>
-
-      <div class="opdracht-section">
-        <h4>Reflectie</h4>
-        <p>Ik heb FOSDEM gekozen voor mijn portfolio omdat het me echt verbaasde hoeveel mensen er wereldwijd gepassioneerd bezig zijn met open-source software. Ik wist wel dat het een groot evenement was, maar om daar duizenden internationale bezoekers samen te zien komen alleen maar om over software te praten en kennis te delen, was indrukwekkend. Het heeft me laten inzien dat IT veel meer is dan alleen een job; voor veel van die aanwezigen is het een echte passie die de basis vormt van de moderne digitale infrastructuur waar wij dagelijks op vertrouwen.</p>
-        <p>Als 'Pragmaticus', wat ook naar voren kwam in mijn Thalento-test, vond ik het interessant om te zien hoe developers niet wachten op een oplossing van de grote tech-reuzen, maar zelf iets nieuws ontwerpen als de huidige standaarden niet voldoen. De talk over Sequoia git zette me echt aan het denken: we vertrouwen vaak blindelings op gecentraliseerde platformen zoals GitHub, maar vanuit een security-oogpunt is het eigenlijk veel logischer om de beveiliging en de verificatie in de code en de repository zelf te verankeren. Het was technisch soms erg uitdagend, maar juist dat hoge niveau dwingt je om kritisch te blijven over je eigen kennisniveau en stimuleert je om je grenzen te verleggen binnen het vakgebied.</p>
-        <p>Een sterk punt van ons weekend was de onderlinge samenwerking en planning; we slaagden erin om tussen de enorme massa mensen toch de weg te vinden naar de juiste aula's, wat cruciaal was aangezien de zalen razendsnel volzet waren. Een concreet werkpunt voor een volgend internationaal event is dat ik me vooraf nog dieper had kunnen inlezen op de zware theoretische onderwerpen, zoals de specifieke wiskunde achter quantum-proof algoritmes. Hierdoor had ik tijdens de sessie minder tijd nodig gehad om de basisconcepten te begrijpen en had ik sneller de link kunnen leggen naar de praktische implementatie in cloud-omgevingen. Deze ervaring heeft me gemotiveerd om mijn technische vaardigheden op het gebied van Linux en automatisering verder te pushen, met een duidelijke ambitie om een expert te worden in het beveiligen van complexe, schaalbare systemen.</p>
-      </div>
-
-      <div style="margin-top:1rem">
-        <span class="tech-pill">Cosign</span><span class="tech-pill">sigstore</span>
-        <span class="tech-pill purple">Post-Quantum Cryptography</span><span class="tech-pill purple">Sequoia Git</span>
-        <span class="tech-pill green">Tor Onion Services</span><span class="tech-pill green">Container Security</span>
-        <span class="tech-pill">CNCF</span><span class="tech-pill">Linux Foundation</span>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- EINDREFLECTIE -->
-<section id="conclusie">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-label">04</div>
+  <!-- EINDREFLECTIE -->
+  <section id="reflection" class="split-section reveal" style="border-top: 1px solid var(--border-color); padding-top: 6rem;">
+    <div class="sticky-side">
+      <span class="section-label">05 // CONCLUSION</span>
       <h2 class="section-title">Eindreflectie</h2>
+      <ul class="meta-info">
+        <li><i>■</i> Transformatie</li>
+        <li><i>■</i> X-Factor</li>
+        <li><i>■</i> Toekomstvisie</li>
+      </ul>
     </div>
-    <div class="conclusie-grid">
-      <div class="conclusie-text reveal">
-        <p>Als ik terugkijk op mijn volledige traject bij de PXL, zie ik een grote verandering in hoe ik met mijn studie en mijn vakgebied omga. Ik kwam de opleiding binnen met een gezonde interesse in IT, maar zonder veel discipline. In het begin van mijn studie deed ik in mijn vrije tijd eigenlijk helemaal niets dat met IT te maken had; de computer was er voor de lessen en daarna ging hij uit. Ik deed maar net genoeg om erdoor te zijn en ik had weinig zelfvertrouwen. Ik was oprecht bang dat de opleiding te moeilijk voor me zou zijn, zeker toen ik in mijn eerste examenreeks buisde voor .NET Essentials.</p>
+    <div class="content-side">
+      <div class="glass-card" style="border-color: var(--accent-purple);">
+        <p>Als ik terugkijk op mijn volledige traject bij de PXL, zie ik een grote verandering in hoe ik met mijn studie en mijn vakgebied omga[cite: 2]. In het begin van mijn studie deed ik in mijn vrije tijd eigenlijk helemaal niets dat met IT te maken had; de computer was er voor de lessen en daarna ging hij uit[cite: 2]. Ik deed maar net genoeg om erdoor te zijn en was oprecht bang dat de opleiding te moeilijk voor me zou zijn, zeker toen ik buisde voor .NET Essentials[cite: 2].</p>
         
-        <p>Dat moment was een keerpunt. In mijn tweede jaar nam ik een besluit dat mijn hele instelling heeft bepaald: ik nam het volledige programma op, inclusief dat zware struikelvak .NET. Ik wist dat ik geen keuze had; het was slagen of stoppen door de schoolregels. Ik heb toen een heel semester lang dagelijks .NET geoefend. Die periode heeft me niet alleen de nodige programmeerkennis opgeleverd, maar vooral de discipline geleerd die ik daarvoor miste. Het feit dat ik dat jaar alles in één keer haalde, gaf me het zelfvertrouwen dat ik nodig had om in het derde jaar echt serieus aan de slag te gaan.</p>
+        <p>Dat moment was een keerpunt. Ik nam het volledige programma op en heb een heel semester lang dagelijks .NET geoefend[cite: 2]. Die periode heeft me niet alleen de nodige programmeerkennis opgeleverd, maar vooral de discipline geleerd die ik daarvoor miste[cite: 2].</p>
         
-        <p>Mijn interesse kwam pas echt naar boven toen ik bij mijn afstudeerrichting Systeem- en Netwerkbeheer (SNB) terechtkwam. Waar ik programmeren vaak ervoer als een verplichte opdracht, kreeg ik bij infrastructuur en DevOps veel meer voldoening van het werk. Tools zoals Terraform, Kubernetes en GitHub Actions voelen voor mij logischer aan. Het combineren van deze technieken om een omgeving geautomatiseerd op te zetten, vind ik het meest interessante deel van de job. Die interesse is inmiddels zo gegroeid dat ik er ook buiten de schoolopdrachten mee bezig ben. Ik had aan het begin van deze opleiding nooit gedacht dat ik in mijn vrije tijd een eigen platform zou bouwen, maar inmiddels heb ik <strong><a href="https://www.fishycommunity.com" target="_blank" class="inline-link">fishycommunity.com</a></strong> gelanceerd. Ik heb de stack zelf opgebouwd met Vercel, Supabase, Cloudflare R2, Next.js en TypeScript. Dit project is voor mij het bewijs dat IT niet langer alleen een studie is, maar iets dat ik nu ook echt graag doe.</p>
-        
-        <p>Op het vlak van mijn persoonlijkheid ben ik ook gegroeid. Vroeger was ik in groepen vaak te stil en ruimde ik stilletjes de rommel van anderen op om conflicten te vermijden. Maar door de technische kennis die ik heb opgebouwd, ben ik veel zelfzekerder geworden. Ik weet nu wat ik kan en ik durf sneller mijn mening te geven of de leiding te nemen als de situatie daarom vraagt. Ik heb geleerd om mijn eigen focus te bewaken en vaker "nee" te zeggen tegen zaken die mijn voortgang belemmeren.</p>
+        <p>Mijn interesse kwam pas echt naar boven toen ik bij mijn afstudeerrichting Systeem- en Netwerkbeheer (SNB) terechtkwam[cite: 2]. Waar ik programmeren vaak ervoer als een verplichte opdracht, kreeg ik bij infrastructuur en DevOps veel meer voldoening[cite: 2]. Tools zoals Terraform, Kubernetes en GitHub Actions voelen logischer aan[cite: 2]. Die interesse is inmiddels zo gegroeid dat ik <strong><a href="https://www.fishycommunity.com" target="_blank" class="site-link" style="display:inline; border-bottom:1px dotted;">fishycommunity.com</a></strong> heb gelanceerd, een project dat voor mij het bewijs is dat IT nu ook echt een hobby is[cite: 2]. Op het vlak van mijn persoonlijkheid ben ik ook gegroeid: ik ben veel zelfzekerder geworden, durf sneller de leiding te nemen en heb geleerd mijn eigen focus te bewaken door vaker "nee" te zeggen[cite: 2].</p>
 
-        <p>Ik ben momenteel bezig met mijn stage bij Melexis, waar ik mijn kennis van automatisering en Kubernetes in een professionele omgeving inzet. Ik ben niet langer de onzekere student van drie jaar geleden; ik ben een gedreven <strong>junior IT-er</strong> die klaar is voor een carrière in de sector.</p>
-      </div>
-      <div class="reveal">
-        <div class="xfactor-card">
-          <div class="xfactor-title">✦ X-Factor</div>
-          <div class="xfactor-sub">Ondernemingszin + (Em)passie + Innovatie + Internationaal samenwerken</div>
-          <p style="font-size:0.9rem;color:rgba(226,232,240,0.8);font-weight:300;line-height:1.7;margin-bottom:1.5rem">
-            Mijn X-Factor zit in de combinatie van ondernemingszin en een oprechte nieuwsgierigheid naar hoe systemen werken. Waar ik vroeger in mijn vrije tijd niets met IT deed, ben ik na een seminarie van Toreon zelfstandig aan de slag gegaan met HackTheBox om te zien of de security-wereld iets voor mij was. Het feit dat ik daar tijd in kon steken zonder dat het als verplicht huiswerk voelde, was voor mij het teken dat ik de juiste richting had gekozen. Momenteel gebruik ik diezelfde energie voor het beheren van mijn eigen platform. Dit toont mijn ondernemende instelling: ik heb zelf een volledige stack opgezet en onderhoud deze nu uit eigen beweging. Het laat zien dat ik inmiddels de nodige motivatie voor het vak heb gevonden. Daarnaast breng ik het internationaal samenwerken nu dagelijks in de praktijk tijdens mijn stage bij Melexis. In dit internationale bedrijf werk ik samen met collega's uit verschillende landen, wat essentieel is voor mijn ontwikkeling als IT-professional.
-          </p>
-          <div class="future-items">
-            <div class="future-item"><div class="check">✓</div>Stage bij Melexis — Kennis toepassen in de praktijk</div>
-            <div class="future-item"><div class="check">✓</div>Expert worden in Infrastructure as Code</div>
-            <div class="future-item"><div class="check">✓</div>Schaalbare cloud-omgevingen bouwen én beveiligen</div>
-            <div class="future-item"><div class="check">✓</div>Doorgroeien tot volwaardig Cloud/DevOps professional</div>
-          </div>
+        <div style="background: rgba(0,0,0,0.4); padding: 1.5rem; border-radius: 12px; margin-top: 2rem; border-left: 4px solid var(--accent-cyan);">
+          <h4 style="margin-bottom: 0.5rem; font-family: 'Fira Code', monospace; color: var(--accent-cyan);">De X-Factor & Toekomst</h4>
+          <p style="font-size: 0.95rem; margin-bottom: 0;">Mijn <strong>X-Factor</strong> zit in de combinatie van ondernemingszin en een oprechte nieuwsgierigheid naar hoe systemen werken[cite: 2]. Waar ik vroeger niets met IT deed, ben ik na het seminarie van Toreon zelfstandig aan de slag gegaan met HackTheBox[cite: 2]. Momenteel gebruik ik diezelfde energie voor het beheren van mijn eigen platform[cite: 2]. Dit toont mijn ondernemende instelling. Daarnaast breng ik het internationaal samenwerken nu dagelijks in de praktijk tijdens mijn stage bij <strong>Melexis</strong>[cite: 2]. Ik ben momenteel bezig met deze stage waar ik mijn kennis van automatisering en Kubernetes inzet[cite: 2]. Ik ben niet langer de onzekere student van drie jaar geleden; ik ben een gedreven <strong>junior IT-er</strong> die klaar is voor een carrière in de sector[cite: 2].</p>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
+</main>
 
 <footer>
-  <div class="footer-name">Rayane Van de Venne</div>
-  <p>I-Talent Portfolio · Hogeschool PXL · Toegepaste Informatica — SNB · 2025–2026</p>
+  <div class="footer-brand">Rayane Van de Venne <span>© 2026</span></div>
+  <div>Hogeschool PXL — I-Talent Portfolio SNB</div>
 </footer>
 
 <script>
+  // Simple Reveal Animation Script
   const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
+  const revealOnScroll = () => {
+    for (let i = 0; i < reveals.length; i++) {
+      const windowHeight = window.innerHeight;
+      const elementTop = reveals[i].getBoundingClientRect().top;
+      const elementVisible = 100;
+      if (elementTop < windowHeight - elementVisible) {
+        reveals[i].classList.add('active');
       }
-    });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => observer.observe(el));
-
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) current = s.id; });
-    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : ''; });
-  });
+    }
+  };
+  window.addEventListener('scroll', revealOnScroll);
+  revealOnScroll(); // Trigger on load
 </script>
+
 </body>
 </html>
