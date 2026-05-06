@@ -111,6 +111,9 @@
   .kq-item.pitfall   { border-color: rgba(245,158,11,0.3); }
   .kq-item.challenge { border-color: rgba(124,58,237,0.3); }
   .kq-item.allergy   { border-color: rgba(239,68,68,0.3); }
+  
+  .site-link { display: inline-block; margin-top: 0.5rem; color: var(--accent); text-decoration: none; font-weight: 500; font-size: 0.85rem; transition: all 0.2s; }
+  .site-link:hover { color: var(--accent2); text-shadow: var(--glow); }
 
   /* OVERZICHT */
   #overzicht { background: var(--bg); }
@@ -148,6 +151,9 @@
   .opdracht-section h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.6rem; font-weight: 600; }
   .opdracht-section p { font-size: 0.95rem; color: rgba(226,232,240,0.82); font-weight: 300; line-height: 1.75; }
   .opdracht-section p + p { margin-top: 0.8rem; }
+  
+  .inline-link { color: var(--accent); text-decoration: none; font-weight: 500; transition: color 0.2s; border-bottom: 1px dotted var(--accent); }
+  .inline-link:hover { color: var(--accent2); border-bottom-color: var(--accent2); }
 
   /* bullet list inside opdracht */
   .opdracht-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.8rem; }
@@ -247,11 +253,12 @@
         </div>
         <div class="aside-card">
           <div class="aside-card-title">🚀 5-jaar plan</div>
-          <p style="font-size:0.88rem;color:rgba(226,232,240,0.8);font-weight:300;line-height:1.7">Zoveel mogelijk ervaring opdoen in DevOps en Cloud. Expert worden in Terraform en Kubernetes. Stage bij <strong>Melexis</strong> als vertrekpunt. Focus op techniek; een rol als manager later niet uitsloten.</p>
+          <p style="font-size:0.88rem;color:rgba(226,232,240,0.8);font-weight:300;line-height:1.7">Zoveel mogelijk ervaring opdoen in DevOps en Cloud. Expert worden in Terraform en Kubernetes. Mijn stage bij <strong>Melexis</strong> verder uitbouwen. Focus op techniek; een rol als manager later niet uitsloten.</p>
         </div>
         <div class="aside-card">
           <div class="aside-card-title">💡 Eigen project — fishycommunity</div>
           <p style="font-size:0.88rem;color:rgba(226,232,240,0.8);font-weight:300;line-height:1.7">Volledig zelf gehost community-platform, gebouwd met Vercel, Supabase, Cloudflare R2, Next.js en TypeScript.</p>
+          <a href="https://www.fishycommunity.com" target="_blank" class="site-link">Bekijk fishycommunity.com →</a>
         </div>
       </div>
     </div>
@@ -405,16 +412,16 @@
       <div class="opdracht-section">
         <h4>Kern — Showcase</h4>
         <p>Tijdens het seminarie gaf spreker Robbe Van Roey een zeer motiverende presentatie. Ondanks zijn jonge leeftijd heeft hij al een indrukwekkend parcours afgelegd in de security-wereld. Zijn boodschap was duidelijk: om echt goed te worden in dit vak, is passie en een enorme tijdsinvestering noodzakelijk. Geïnspireerd door zijn verhaal over Bug Bounties en het zelfstandig vinden van zwakheden in grote systemen, ben ik onmiddellijk tot actie overgegaan.</p>
-        <p>Zoals blijkt uit mijn bewijsmateriaal, heb ik op 13 maart 2025 — slechts twee dagen na de sessie — een account aangemaakt op HackTheBox (HTB) Academy. Na een korte testperiode van twee dagen op de gratis tier, was ik zo overtuigd van de waarde van dit platform dat ik op diezelfde 13e maart ben overgestapt naar een betaald HTB Academy Student-abonnement. Deze financiële en tijdelijke investering was voor mij een bewuste stap om het traject van Web Penetration Tester serieus aan te pakken.</p>
+        <p>Zoals blijkt uit mijn bewijsmateriaal, heb ik kort na de sessie een account aangemaakt op HackTheBox (HTB) Academy. Deze financiële en tijdelijke investering was voor mij een bewuste stap om het traject van Web Penetration Tester serieus aan te pakken.</p>
         <p>Na de theoretische uiteenzetting volgde de hands-on team-hackathon (CTF). Samen met mijn teamgenoten kregen we toegang tot een lab-omgeving waar we verschillende challenges moesten oplossen — van web-exploits tot het kraken van eenvoudige wachtwoorden. De tijdsdruk dwong ons om efficiënt samen te werken en taken te verdelen. Mijn basiskennis van netwerkarchitectuur en Linux hielp me om de structuur van de doelwitten sneller te begrijpen. We gebruikten tools zoals Nmap voor port scanning en de developer tools van de browser om broncode te inspecteren op zoek naar verborgen aanwijzingen.</p>
-        <p>Op mijn HTB-dashboard (gebruikersnaam: 'drakenkoorts') is mijn verdere voortgang zichtbaar. Ik focuste op modules zoals 'Web Requests', 'Introduction to Web Applications' en 'Information Gathering - Web Edition' — hier leerde ik dat een succesvolle aanval voor 80% afhangt van de voorbereiding en verkenning van het doelwit. Daarnaast verdiepte ik me in 'Linux Fundamentals', 'SQL Injection Fundamentals' en 'JavaScript Deobfuscation'. Door dagelijks te oefenen, ook tijdens drukke periodes van mijn Research Project, heb ik badges behaald die mijn groei in technische vaardigheden bevestigen.</p>
+        <p>Op mijn HTB-dashboard is mijn verdere voortgang zichtbaar. Ik focuste op modules zoals 'Web Requests', 'Introduction to Web Applications' en 'Information Gathering - Web Edition' — hier leerde ik dat een succesvolle aanval voor 80% afhangt van de voorbereiding en verkenning van het doelwit. Daarnaast verdiepte ik me in 'Linux Fundamentals', 'SQL Injection Fundamentals' en 'JavaScript Deobfuscation'. Door dagelijks te oefenen, ook tijdens drukke periodes van mijn Research Project, heb ik badges behaald die mijn groei in technische vaardigheden bevestigen.</p>
       </div>
 
       <div class="opdracht-section">
         <h4>Reflectie</h4>
         <p>Ik heb deze activiteit gekozen omdat het seminarie van Robbe Van Roey me meteen triggerde. Ik ben iemand die graag praktisch bezig is — een 'Pragmaticus' zoals uit mijn Thalento-test kwam — en dit was de eerste keer dat ik zag hoe je van die technische puzzels ook echt je werk kunt maken. Wat me bijbleef: je hoeft niet bij een groot bedrijf te zitten om hiermee bezig te zijn; je kunt als freelancer via bug bounties ook echt impact hebben.</p>
         <p>Het belangrijkste dat ik leerde is dat cybersecurity veel meer is dan tools draaien. Mijn grootste werkpunt is dat ik vaak te ongeduldig ben. Ik wilde meteen die exploit proberen, terwijl ik eigenlijk nog niet genoeg info had verzameld. Door de HTB-modules merkte ik dat 80% van het werk voorbereiding en 'recon' is: rustig blijven en methodisch te werk gaan levert uiteindelijk meer resultaat op.</p>
-        <p>Ook het stukje over responsible disclosure vond ik erg nuttig. Je moet weten hoe je gevonden bugs netjes aan een bedrijf meldt om te voorkomen dat je zelf in de problemen komt. Het gaat erom dat je bedrijven helpt om veiliger te worden, niet om dingen kapot te maken. Deze activiteit was voor mij de perfecte link met mijn opleiding SNB. Ik ben na die dag niet gestopt met leren; ik ben eigenlijk nog elke dag bezig om die hacker-mindset verder te ontwikkelen.</p>
+        <p>Ook het stukje over responsible disclosure vond ik erg nuttig. Je moet weten hoe je gevonden bugs netjes aan een bedrijf meldt om te voorkomen dat je zelf in de problemen komt. Het gaat erom dat je bedrijven helpt om veiliger te worden, niet om dingen kapot te maken. Deze activiteit was voor mij de perfecte link met mijn opleiding SNB.</p>
       </div>
 
       <div style="margin-top:1rem">
@@ -528,23 +535,28 @@
     </div>
     <div class="conclusie-grid">
       <div class="conclusie-text reveal">
-        <p>Als ik terugkijk op mijn volledige traject bij de PXL, zie ik een enorme transformatie van wie ik was als eerstejaars tot de professional die ik nu ben. Ik kwam de opleiding binnen met een gezonde interesse in IT, maar zonder de nodige focus of discipline. Ik deed eigenlijk maar net genoeg om erdoor te zijn en had weinig zelfvertrouwen — ik was oprecht bang dat de opleiding voor mij te moeilijk zou zijn, zeker toen ik direct in mijn eerste examenreeks buisde voor .NET Essentials.</p>
-        <p>Dat moment was een keerpunt. In mijn tweede jaar nam ik een risico dat achteraf mijn hele mindset heeft bepaald: ik nam het volledige programma op, inclusief dat zware struikelvak .NET. Ik wist dat ik geen keuze had; het was slagen of stoppen door de schoolregels. Ik heb toen een heel semester lang letterlijk dagelijks .NET geoefend. Die periode van zwoegen heeft me niet alleen de nodige programmeerkennis opgeleverd, maar vooral de <strong>discipline</strong> geleerd die ik daarvoor miste. Het feit dat ik dat jaar alles in één keer haalde, gaf me de boost in zelfvertrouwen die ik nodig had om in het derde jaar echt te gaan vlammen.</p>
-        <p>Mijn passie kwam pas echt tot uiting bij de afstudeerrichting Systeem- en Netwerkbeheer. Waar ik programmeren vaak ervoer als "altijd hetzelfde kunstje", kreeg ik bij infrastructuur en DevOps direct een kick. Tools zoals Terraform, Kubernetes en GitHub Actions voelen voor mij veel logischer en tastbaarder aan. Die passie is inmiddels zo groot dat ik het niet bij schoolopdrachten laat — ik heb mijn eigen community-platform <strong>fishycommunity</strong> gelanceerd, volledig zelf gebouwd en gehost met Vercel, Supabase, Cloudflare R2, Next.js en TypeScript. Dit project is voor mij het bewijs dat ik nu een professional ben die niet alleen de theorie volgt, maar zelf complexe systemen kan bouwen en managen.</p>
-        <p>Op persoonlijk vlak ben ik ook sterk gegroeid. Vroeger was ik in groepen vaak te stil en ruimde ik stilletjes de rommel van anderen op. Door de technische expertise die ik in het derde jaar heb opgebouwd, ben ik veel zelfzekerder geworden. Ik weet nu wat ik kan en durf sneller mijn mening te geven of de leiding te nemen. Ik ben niet langer de onzekere student van drie jaar geleden; ik ben een gedreven engineer die klaar is voor de echte wereld.</p>
+        <p>Als ik terugkijk op mijn volledige traject bij de PXL, zie ik een grote verandering in hoe ik met mijn studie en mijn vakgebied omga. Ik kwam de opleiding binnen met een gezonde interesse in IT, maar zonder veel discipline. In het begin van mijn studie deed ik in mijn vrije tijd eigenlijk helemaal niets dat met IT te maken had; de computer was er voor de lessen en daarna ging hij uit. Ik deed maar net genoeg om erdoor te zijn en ik had weinig zelfvertrouwen. Ik was oprecht bang dat de opleiding te moeilijk voor me zou zijn, zeker toen ik in mijn eerste examenreeks buisde voor .NET Essentials.</p>
+        
+        <p>Dat moment was een keerpunt. In mijn tweede jaar nam ik een besluit dat mijn hele instelling heeft bepaald: ik nam het volledige programma op, inclusief dat zware struikelvak .NET. Ik wist dat ik geen keuze had; het was slagen of stoppen door de schoolregels. Ik heb toen een heel semester lang dagelijks .NET geoefend. Die periode heeft me niet alleen de nodige programmeerkennis opgeleverd, maar vooral de discipline geleerd die ik daarvoor miste. Het feit dat ik dat jaar alles in één keer haalde, gaf me het zelfvertrouwen dat ik nodig had om in het derde jaar echt serieus aan de slag te gaan.</p>
+        
+        <p>Mijn interesse kwam pas echt naar boven toen ik bij mijn afstudeerrichting Systeem- en Netwerkbeheer (SNB) terechtkwam. Waar ik programmeren vaak ervoer als een verplichte opdracht, kreeg ik bij infrastructuur en DevOps veel meer voldoening van het werk. Tools zoals Terraform, Kubernetes en GitHub Actions voelen voor mij logischer aan. Het combineren van deze technieken om een omgeving geautomatiseerd op te zetten, vind ik het meest interessante deel van de job. Die interesse is inmiddels zo gegroeid dat ik er ook buiten de schoolopdrachten mee bezig ben. Ik had aan het begin van deze opleiding nooit gedacht dat ik in mijn vrije tijd een eigen platform zou bouwen, maar inmiddels heb ik <strong><a href="https://www.fishycommunity.com" target="_blank" class="inline-link">fishycommunity.com</a></strong> gelanceerd. Ik heb de stack zelf opgebouwd met Vercel, Supabase, Cloudflare R2, Next.js en TypeScript. Dit project is voor mij het bewijs dat IT niet langer alleen een studie is, maar iets dat ik nu ook echt graag doe.</p>
+        
+        <p>Op het vlak van mijn persoonlijkheid ben ik ook gegroeid. Vroeger was ik in groepen vaak te stil en ruimde ik stilletjes de rommel van anderen op om conflicten te vermijden. Maar door de technische kennis die ik heb opgebouwd, ben ik veel zelfzekerder geworden. Ik weet nu wat ik kan en ik durf sneller mijn mening te geven of de leiding te nemen als de situatie daarom vraagt. Ik heb geleerd om mijn eigen focus te bewaken en vaker "nee" te zeggen tegen zaken die mijn voortgang belemmeren.</p>
+
+        <p>Ik ben momenteel bezig met mijn stage bij Melexis, waar ik mijn kennis van automatisering en Kubernetes in een professionele omgeving inzet. Ik ben niet langer de onzekere student van drie jaar geleden; ik ben een gedreven <strong>junior IT-er</strong> die klaar is voor een carrière in de sector.</p>
       </div>
       <div class="reveal">
         <div class="xfactor-card">
           <div class="xfactor-title">✦ X-Factor</div>
-          <div class="xfactor-sub">Ondernemingszin + onstuitbare leerhonger</div>
+          <div class="xfactor-sub">Ondernemingszin + (Em)passie + Innovatie + Internationaal samenwerken</div>
           <p style="font-size:0.9rem;color:rgba(226,232,240,0.8);font-weight:300;line-height:1.7;margin-bottom:1.5rem">
-            Mijn X-Factor zit in de combinatie van ondernemingszin en een onstuitbare leerhonger. Ik wacht niet tot leerstof me wordt aangeboden — ik zoek het zelf op. Dat zie je aan fishycommunity, maar ook aan het feit dat ik wekelijks op HackTheBox bezig ben om mijn security-skills aan te scherpen. Ik wil mezelf voortdurend pushen om beter te worden in wat ik doe.
+            Mijn X-Factor zit in de combinatie van ondernemingszin en een oprechte nieuwsgierigheid naar hoe systemen werken. Waar ik vroeger in mijn vrije tijd niets met IT deed, ben ik na een seminarie van Toreon zelfstandig aan de slag gegaan met HackTheBox om te zien of de security-wereld iets voor mij was. Het feit dat ik daar tijd in kon steken zonder dat het als verplicht huiswerk voelde, was voor mij het teken dat ik de juiste richting had gekozen. Momenteel gebruik ik diezelfde energie voor het beheren van mijn eigen platform. Dit toont mijn ondernemende instelling: ik heb zelf een volledige stack opgezet en onderhoud deze nu uit eigen beweging. Het laat zien dat ik inmiddels de nodige motivatie voor het vak heb gevonden. Daarnaast breng ik het internationaal samenwerken nu dagelijks in de praktijk tijdens mijn stage bij Melexis. In dit internationale bedrijf werk ik samen met collega's uit verschillende landen, wat essentieel is voor mijn ontwikkeling als IT-professional.
           </p>
           <div class="future-items">
-            <div class="future-item"><div class="check">✓</div>Stage bij Melexis — Kubernetes in high-tech omgeving</div>
+            <div class="future-item"><div class="check">✓</div>Stage bij Melexis — Kennis toepassen in de praktijk</div>
             <div class="future-item"><div class="check">✓</div>Expert worden in Infrastructure as Code</div>
             <div class="future-item"><div class="check">✓</div>Schaalbare cloud-omgevingen bouwen én beveiligen</div>
-            <div class="future-item"><div class="check">✓</div>Doorgroeien naar senior DevOps engineer</div>
+            <div class="future-item"><div class="check">✓</div>Doorgroeien tot volwaardig Cloud/DevOps professional</div>
           </div>
         </div>
       </div>
